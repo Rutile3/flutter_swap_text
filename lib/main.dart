@@ -31,7 +31,8 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
+      body: Container(
+        padding: EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -43,27 +44,53 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            TextField(
-              controller: _origin,
-              decoration: const InputDecoration(
-                hintText: '出発地を入力',
-                icon: Icon(Icons.directions_walk),
-              ),
-              enabled: true,
-              onSubmitted: _onSubmitted,
-            ),
-            TextField(
-              controller: _destination,
-              decoration: const InputDecoration(
-                hintText: '目的地を入力',
-                icon: Icon(Icons.flag),
-              ),
-              enabled: true,
-              onSubmitted: _onSubmitted,
-            ),
+            _buildOriginAndDestinationTextField(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildOriginAndDestinationTextField() {
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            children: [
+              TextField(
+                controller: _origin,
+                decoration: const InputDecoration(
+                  hintText: '出発地を入力',
+                  icon: Icon(Icons.directions_walk),
+                ),
+                enabled: true,
+                onSubmitted: _onSubmitted,
+              ),
+              TextField(
+                controller: _destination,
+                decoration: const InputDecoration(
+                  hintText: '目的地を入力',
+                  icon: Icon(Icons.flag),
+                ),
+                enabled: true,
+                onSubmitted: _onSubmitted,
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          width: 15.0,
+        ),
+        Container(
+          decoration: BoxDecoration(
+              color: Color(0xfff0f3f7),
+              borderRadius: BorderRadius.circular(5.0)),
+          child: IconButton(
+            icon: Icon(Icons.import_export),
+            onPressed: _swapOriginAndDestination,
+          ),
+        )
+      ],
     );
   }
 
@@ -72,6 +99,14 @@ class _MyHomePageState extends State<MyHomePage> {
     final text02 = _destination.text;
     setState(() {
       _text = "$text01 => $text02";
+    });
+  }
+
+  void _swapOriginAndDestination() {
+    setState(() {
+      final tmp = _origin.text;
+      _origin.text = _destination.text;
+      _destination.text = tmp;
     });
   }
 }
