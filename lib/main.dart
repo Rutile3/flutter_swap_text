@@ -45,10 +45,20 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             TextField(
               controller: _origin,
+              decoration: const InputDecoration(
+                hintText: '出発地を入力',
+                icon: Icon(Icons.directions_walk),
+              ),
+              enabled: true,
               onSubmitted: _onSubmitted,
             ),
             TextField(
               controller: _destination,
+              decoration: const InputDecoration(
+                hintText: '目的地を入力',
+                icon: Icon(Icons.flag),
+              ),
+              enabled: true,
               onSubmitted: _onSubmitted,
             ),
           ],
